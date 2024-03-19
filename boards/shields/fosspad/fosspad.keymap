@@ -19,7 +19,6 @@
                 &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_ENTER
                             &kp KP_N0   &kp KP_DOT
             >;
-
-        }
+        };
     };
 };
