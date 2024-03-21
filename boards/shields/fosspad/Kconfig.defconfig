@@ -1,9 +1,4 @@
 if SHEILD_FOSSPAD
     config ZMK_KEYBOARD_NAME
         default "fosspad"
-
-    config CONFIG_BT
-        default y
-    config CONFIG_ZMK_BLE
-        default y
 endif
