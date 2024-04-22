@@ -5,11 +5,12 @@
 
 
 #define DEFAULT 0
-#define BT 1
-#define POWER 2
+#define KPLAYER 1
+#define STING 2
+#define WASD 3
 
 &soft_off {
-          hold-time-ms = <3000>;
+          hold-time-ms = <2000>;
 };
 
 / {
@@ -17,47 +18,61 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            // | BTLayer |  /   |   *   |   -   |
+            // | KPLAYER |  /   |   *   |   -   |
             // |    7    |  8   |   9   |   +   |
-            // |    4    |  5   |   6   |       |
+            // |    4    |  5   |   6   |-------|
             // |    1    |  2   |   3   | Enter |
-            // |         |  0   |   .   |       |
+            // |---------|  0   |   .   |-------|
             
             bindings = <
-                &lt BT KP_NUMLOCK       &kp KDIV    &kp KMLT    &kp KMIN
-                &kp KP_N7               &kp KP_N8   &kp KP_N9   &kp KPLS
-                &kp KP_N4               &kp KP_N5   &kp KP_N6
-                &kp KP_N1               &kp KP_N2   &kp KP_N3   &kp KP_ENTER
-                                        &kp KP_N0   &kp KP_DOT
+                &tog KPLAYER            &kp SLASH   &kp STAR    &kp MINUS
+                &kp N7                  &kp N8      &kp N9      &kp PLUS
+                &kp N4                  &kp N5      &kp N6
+                &kp N1                  &kp N2      &kp N3      &kp ENTER
+                                        &kp N0      &kp DOT
             >;
         };
 
-        bt_layer {
-            // | BTLayer | TBTL  | DFLT  |  TPWR |
-            // |  FLASH  |   8   |   9   |   +   |
-            // | *CLRBT  | CLRBT |   6   |       |
-            // |   BT0   |  BT1  |  BT2  | Enter |
-            // |         |  TBT  |   .   |       |
+        kp_layer {
+            // | KPLAYER |   /   |   *   |   -   |
+            // |  HOME   |  UP   | PGUP  |   +   |
+            // |  LEFT   | SMTH  | RIGHT |-------|
+            // |   END   | DOWN  | PGDOWN| Enter |
+            // |---------|  INS  |  DEL  |-------|
             bindings = <
-                &lt BT KP_NUMLOCK       &to  BT        &to DEFAULT    &to POWER
-                &trans                  &trans         &trans         &trans
-                &bt BT_CLR_ALL          &bt BT_CLR     &trans
-                &bt BT_SEL 0            &bt BT_SEL 1   &bt BT_SEL 2   &trans
-                                        &out OUT_TOG   &trans
+                &trans                  &to WASD       &to DEFAULT    &to STING
+                &kp HOME                &kp UP         &kp PG_UP      &trans
+                &kp LEFT                &trans         &kp RIGHT
+                &kp END                 &kp DOWN       &kp PG_DOWN    &trans
+                                        &kp INS        &kp DEL
             >;
         };
-        pwr_layer {
-            // | BTLayer | TBTL  | TDFLT |  TPWR |
-            // |  FLASH  |   8   |   9   |   +   |
-            // | *CLRBT  | CLRBT |   6   |       |
-            // |   BT0   |  BT1  |  BT2  | Enter |
-            // |         |  TBT  |   .   |       |
+        set_layer {
+            // |  DFLT   | WASD  | MEDIA | MACRO |
+            // |  FLASH  |   8   |   9   |  OFF  |
+            // | *CLRBT  | CLRBT |   6   |-------|
+            // |   BT0   |  BT1  |  BT2  |  OFF  |
+            // |---------|  RST  | BOOT  |-------|
+            bindings = <
+                &to DEFAULT             &to WASD       &to DEFAULT    &to STING
+                &trans                  &trans         &trans         &soft_off
+                &bt BT_CLR_ALL          &bt BT_CLR     &trans
+                &bt BT_SEL 0            &bt BT_SEL 1   &bt BT_SEL 2   &soft_off
+                                        &sys_reset     &bootloader
+            >;
+        };
+        wasd_layer {
+            // |  DFLT   | TBTL  | TDFLT |  TPWR |
+            // |    Q    |   W   |   E   |   C   |
+            // |    A    |   S   |   D   |-------|
+            // |   TAB   |       |       | SPACE |
+            // |---------|       |       |-------|
             bindings = <
                 &lt BT KP_NUMLOCK       &to  BT        &to DEFAULT    &to POWER
-                &trans                  &trans         &trans         &trans
-                &trans                  &trans         &trans
-                &trans                  &trans         &trans         &soft_off
-                                        &sys_reset     &bootloader
+                &kp Q                   &kp W          &kp E          &kp C
+                &kp A                   &kp S          &kp D
+                &kp TAB                 &trans         &trans         &kp SPACE
+                                        &kp ENTER      &trans
             >;
         };
     };
