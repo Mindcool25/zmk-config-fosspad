@@ -43,7 +43,7 @@
                 &trans                  &to WASD       &to DEFAULT    &to STING
                 &kp HOME                &kp UP         &kp PG_UP      &trans
                 &kp LEFT                &trans         &kp RIGHT
-                &kp END                 &kp DOWN       &kp PG_DOWN    &trans
+                &kp END                 &kp DOWN       &kp PG_DN      &trans
                                         &kp INS        &kp DEL
             >;
         };
