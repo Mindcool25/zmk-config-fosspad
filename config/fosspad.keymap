@@ -1,0 +1,64 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+
+#define DEFAULT 0
+#define BT 1
+#define POWER 2
+
+&soft_off {
+          hold-time-ms = <3000>;
+};
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            // | BTLayer |  /   |   *   |   -   |
+            // |    7    |  8   |   9   |   +   |
+            // |    4    |  5   |   6   |       |
+            // |    1    |  2   |   3   | Enter |
+            // |         |  0   |   .   |       |
+            
+            bindings = <
+                &lt BT KP_NUMLOCK       &kp KDIV    &kp KMLT    &kp KMIN
+                &kp KP_N7               &kp KP_N8   &kp KP_N9   &kp KPLS
+                &kp KP_N4               &kp KP_N5   &kp KP_N6
+                &kp KP_N1               &kp KP_N2   &kp KP_N3   &kp KP_ENTER
+                                        &kp KP_N0   &kp KP_DOT
+            >;
+        };
+
+        bt_layer {
+            // | BTLayer | TBTL  | DFLT  |  TPWR |
+            // |  FLASH  |   8   |   9   |   +   |
+            // | *CLRBT  | CLRBT |   6   |       |
+            // |   BT0   |  BT1  |  BT2  | Enter |
+            // |         |  TBT  |   .   |       |
+            bindings = <
+                &lt BT KP_NUMLOCK       &to  BT        &to DEFAULT    &to POWER
+                &trans                  &trans         &trans         &trans
+                &bt BT_CLR_ALL          &bt BT_CLR     &trans
+                &bt BT_SEL 0            &bt BT_SEL 1   &bt BT_SEL 2   &trans
+                                        &out OUT_TOG   &trans
+            >;
+        };
+        pwr_layer {
+            // | BTLayer | TBTL  | TDFLT |  TPWR |
+            // |  FLASH  |   8   |   9   |   +   |
+            // | *CLRBT  | CLRBT |   6   |       |
+            // |   BT0   |  BT1  |  BT2  | Enter |
+            // |         |  TBT  |   .   |       |
+            bindings = <
+                &lt BT KP_NUMLOCK       &to  BT        &to DEFAULT    &to POWER
+                &trans                  &trans         &trans         &trans
+                &trans                  &trans         &trans
+                &trans                  &trans         &trans         &soft_off
+                                        &sys_reset     &bootloader
+            >;
+        };
+    };
+};
